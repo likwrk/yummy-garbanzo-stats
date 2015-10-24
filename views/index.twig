@@ -1,0 +1,48 @@
+<head>
+    <link rel="stylesheet" href="{{appUrl}}/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <section class="left">
+            <form action="{{appUrl}}/add" method="post">
+                <table>
+                    <tr>
+                        <td><lable>Class <input type="text" value="{{class}}" name="class"></lable></td>
+                        <td><label><input type="radio" name="sex" value="male" checked="checked"> Male</label><br></td>
+                        <td><label><input type="radio" name="sex" value="female"> Female</label></td>
+                    </tr>
+                </table>
+                <hr>
+                <table class="questions">
+                    <tr>
+                        <td>
+                            {% for qnum, answers in questions %}
+                                <p><strong>{{qnum}}</strong> question</p>
+                                <div>
+                                    {% for anum, answer in answers %}
+                                        <label><input type="checkbox" value="{{qnum}}_{{anum}}" name="answer[]">{{answer}}) </label>
+                                    {% endfor %}
+                                </div>
+                                <hr>
+                                {% if qnum % 5 == 0 and qnum != 15 %}
+                                    </td><td>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="Save">
+            </form>
+        </section>
+        <section class="right">
+            <ul>
+                {% for student in students %}
+                    <li>
+                        {{loop.revindex}}) {{student.class}} {{student.sex}}: (1-10){{student.points_1_10}}, (11-15){{student.points_11_15}}, (sum){{student.points_total}}   - <a href="{{appUrl}}/delete/{{student.id}}">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+    <script type="text/javascript" src="{{appUrl}}/common.js"></script>
+</body>

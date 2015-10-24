@@ -1,0 +1,52 @@
+section {
+    box-sizing: border-box;
+}
+body {
+    background-color: #fff;
+}
+.wrapper section {
+    display: block;
+    float: left;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.left {width: 69%; margin-right: 1%; }
+.right {width: 30%; }
+
+.questions td {
+    border-right: 1px solid #333;
+    padding: 0 5px;
+}
+
+label {
+    display: inline-block;
+    padding: 1px 3px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+label:hover {
+    background-color: #BAD0E4;
+}
+.checked-label {
+    background-color: #A1CD39;
+    /*background-color: #8AC007;*/
+}
+
+label input[type="checkbox"], label input[type="radio"] {
+    cursor: pointer;
+}
+
+.checked-td {
+    background-color: #C6E2CC;
+}
+
+p {
+    margin-bottom: 3px;
+}
+
+
+ul {
+    padding-left: 20px;
+}

@@ -1,0 +1,57 @@
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.result {
+    float: left;
+    width: 33.33%;
+}
+
+h6 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    background-color: #eee;
+}
+
+.progress-wrapper {
+    position: relative;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid rgb(204, 204, 204);
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #BAD0E4;
+    z-index: -1;
+}
+
+.level {
+    padding: 0 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+td {
+    text-align: center;
+}

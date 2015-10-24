@@ -1,0 +1,92 @@
+<head>
+    <link rel="stylesheet" href="{{appUrl}}/results.css">
+</head>
+<body>
+{% for class in classes %}
+<div class="class">
+    <h2>{{class.name}}</h2>
+    <div class="clearfix">
+        {% for result in class.results %}
+            <div class="result">
+                <h4>{{result.title}}</h5>
+                <div class="clearfix">
+                    {% for level in result.levels %}
+                        <div class="level">
+                            {% set boys = level.male_count / class.male * 100 %}
+                            {% set girls = level.female_count / class.female * 100 %}
+                            {% set total = (level.male_count + level.female_count) / class.total * 100 %}
+                            <h6>{{level.title}}</h6>
+                            <div class="progress-wrapper">
+                                <div class="progress" style="width: {{boys}}%;"></div>
+                                Мальчики: {{boys|round(2)}}%
+                            </div>
+                            <div class="progress-wrapper">
+                                <div class="progress" style="width: {{girls}}%;"></div>
+                                Девочки: {{girls|round(2)}}%
+                            </div>
+                            <div class="progress-wrapper">
+                                <div class="progress" style="width: {{total}}%;"></div>
+                                В общем: {{total|round(2)}}%
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+<h1>Сводная таблица</h1>
+<table>
+    {% for class in classes %}
+        <tr>
+            <th rowspan="2" colspan="1">Класс {{class.name}}</th>
+            <th colspan="4">Культура ЗОЖ в отношении привычек</th>
+            <th colspan="4">Проявление вредных привычек</th>
+            <th colspan="4">Отношение к вредным привычкам</th>
+        </tr>
+        <tr>
+            <th>Высокая</th>
+            <th>Достаточная</th>
+            <th>Удовлитворительная</th>
+            <th>Низкая</th>
+            <th>Отсутствие</th>
+            <th>Незначительное</th>
+            <th>Умеренное</th>
+            <th>Существенное</th>
+            <th>Негативное</th>
+            <th>Нейтральное</th>
+            <th>Умеренно-позитивные</th>
+            <th>Позитивное</th>
+        </tr>
+        <tr>
+            <!-- <th rowspan="3">{{class.name}}</th> -->
+            <th>Мальчики</th>
+            {% for result in class.results %}
+                {% for level in result.levels %}
+                    {% set boys = level.male_count / class.male * 100 %}
+                    <td>{{boys|round(2)}}%</td>
+                {% endfor %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>Девочки</th>
+            {% for result in class.results %}
+                {% for level in result.levels %}
+                    {% set girls = level.female_count / class.female * 100 %}
+                    <td>{{girls|round(2)}}%</td>
+                {% endfor %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>В общем</th>
+            {% for result in class.results %}
+                {% for level in result.levels %}
+                    {% set total = (level.male_count + level.female_count) / class.total * 100 %}
+                    <td>{{total|round(2)}}%</td>
+                {% endfor %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+</body>
