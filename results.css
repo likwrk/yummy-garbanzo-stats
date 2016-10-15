@@ -55,3 +55,11 @@ table, th, td {
 td {
     text-align: center;
 }
+
+.class-list li {
+    display: inline-block;
+}
+
+.text-left {
+    text-align: left;
+}

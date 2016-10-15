@@ -2,6 +2,11 @@
     <link rel="stylesheet" href="{{appUrl}}/results.css">
 </head>
 <body>
+<ul class="class-list">
+    {% for class_name in class_list %}
+        <li><a href="{{appUrl}}/results/{{class_name}}">{{class_name}}</a></li>
+    {% endfor %}
+</ul>
 {% for class in classes %}
 <div class="class">
     <h2>{{class.name}}</h2>
