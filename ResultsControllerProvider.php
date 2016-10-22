@@ -29,12 +29,8 @@ class ResultsControllerProvider implements ControllerProviderInterface
 
     public function resultsController(Application $app)
     {
-        /*SCHOOL*/
         $this->getSchoolTotals();
-
-        /* PARALLELS */
         $this->getParallelsTotals();
-        /* CLASSES */
         $this->getClassesTotals();
 
         foreach ($this->results as $result_key => $result) {
@@ -59,7 +55,6 @@ class ResultsControllerProvider implements ControllerProviderInterface
                     foreach ($res_data as $res) {
                         $this->classes[$res['class']]['results'][$result_key]['levels'][$level_key][$sex . '_count'] = $res['num'];
                     }
-
                 }
             }
         }
@@ -78,10 +73,10 @@ class ResultsControllerProvider implements ControllerProviderInterface
             $sqlCount = 'select count(id) as total from students where class = "' . $klass . '" and sex = "' . $sex . '"';
             $total = (int)$this->app['db']->fetchArray($sqlCount)[0];
             $sql = 'SELECT a.question, a.answer, (count(a.id)/' . $total . ') AS percents 
-                FROM answers a LEFT JOIN students s ON s.id = a.student_id 
-                WHERE s.class = "' . $klass . '" AND s.sex = "' . $sex . '" 
-                GROUP BY a.question, a.answer
-                ORDER BY a.question, a.answer';
+                    FROM answers a LEFT JOIN students s ON s.id = a.student_id 
+                    WHERE s.class = "' . $klass . '" AND s.sex = "' . $sex . '" 
+                    GROUP BY a.question, a.answer
+                    ORDER BY a.question, a.answer';
             $res_data = $this->app['db']->fetchAll($sql);
             foreach ($res_data as $row) {
                 $question_index = $row['question'] - 1;
