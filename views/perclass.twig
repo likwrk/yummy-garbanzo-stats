@@ -1,0 +1,44 @@
+<html>
+<head>
+    <link rel="stylesheet" href="{{appUrl}}/results.css">
+    <title>Результаты {{ klass }}</title>
+</head>
+<body>
+<h1><a href="{{appUrl}}/results">←</a> {{ klass }}</h1>
+<table class="class-results">
+    {% for question in question_titles %}
+        {% set question_index = loop.index - 1 %}
+        <tr class="row__sex">
+            <th class="text-left">{{ question_index + 1 }}. {{ question }}</th>
+            <th>Мальчики</th>
+            <th>Девочки</th>
+        </tr>
+        {% for answer in question_options[question_index] %}
+            {% set answer_index = loop.index - 1 %}
+            <tr>
+                <td class="text-left">{{ letters[answer_index] }}) {{ answer }}</td>
+                <td class="progress-wrapper">
+                    {% if results['male'][question_index][answer_index] is defined %}
+                        {% set percents = results['male'][question_index][answer_index] * 100 %}
+                    {% else %}
+                        {% set percents = 0 %}
+                    {% endif %}
+
+                    <div class="progress" style="width: {{percents}}%;"></div>
+                    {{percents|round(2)}}%
+                </td>
+                <td class="progress-wrapper">
+                    {% if results['female'][question_index][answer_index] is defined %}
+                        {% set percents = results['female'][question_index][answer_index] * 100 %}
+                    {% else %}
+                        {% set percents = 0 %}
+                    {% endif %}
+                    <div class="progress" style="width: {{percents}}%;"></div>
+                    {{percents|round(2)}}%
+                </td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+</body>
+</html>
