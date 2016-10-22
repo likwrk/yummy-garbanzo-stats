@@ -1,46 +1,59 @@
+<html>
 <head>
     <link rel="stylesheet" href="{{appUrl}}/results.css">
+    <title>Общие результаты</title>
+    <script>
+        function togglePerClassStat() {
+            var el = document.getElementById('per-class-stat');
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
 </head>
 <body>
-<ul class="class-list">
-    {% for class_name in class_list %}
-        <li><a href="{{appUrl}}/results/{{class_name}}">{{class_name}}</a></li>
-    {% endfor %}
-</ul>
-{% for class in classes %}
-<div class="class">
-    <h2>{{class.name}}</h2>
-    <div class="clearfix">
-        {% for result in class.results %}
-            <div class="result">
-                <h4>{{result.title}}</h5>
-                <div class="clearfix">
-                    {% for level in result.levels %}
-                        <div class="level">
-                            {% set boys = level.male_count / class.male * 100 %}
-                            {% set girls = level.female_count / class.female * 100 %}
-                            {% set total = (level.male_count + level.female_count) / class.total * 100 %}
-                            <h6>{{level.title}}</h6>
-                            <div class="progress-wrapper">
-                                <div class="progress" style="width: {{boys}}%;"></div>
-                                Мальчики: {{boys|round(2)}}%
-                            </div>
-                            <div class="progress-wrapper">
-                                <div class="progress" style="width: {{girls}}%;"></div>
-                                Девочки: {{girls|round(2)}}%
-                            </div>
-                            <div class="progress-wrapper">
-                                <div class="progress" style="width: {{total}}%;"></div>
-                                В общем: {{total|round(2)}}%
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
+<div class="clearfix">
+    <ul class="class-list left">
+        {% for class_name in class_list %}
+            <li><a href="{{appUrl}}/results/{{class_name}}">{{class_name}}</a></li>
         {% endfor %}
-    </div>
+    </ul>
 </div>
-{% endfor %}
+<h1><a href="#" onclick="togglePerClassStat();return false;">Статистика по классам с графиком. (развернуть)</a></h1>
+<div id="per-class-stat" style="display: none;">
+    {% for class in classes %}
+        <div class="class">
+            <h2>{{class.name}}</h2>
+            <div class="clearfix">
+                {% for result in class.results %}
+                    <div class="result">
+                        <h4>{{result.title}}</h5>
+                            <div class="clearfix">
+                                {% for level in result.levels %}
+                                    <div class="level">
+                                        {% set boys = level.male_count / class.male * 100 %}
+                                        {% set girls = level.female_count / class.female * 100 %}
+                                        {% set total = (level.male_count + level.female_count) / class.total * 100 %}
+                                        <h6>{{level.title}}</h6>
+                                        <div class="progress-wrapper">
+                                            <div class="progress" style="width: {{boys}}%;"></div>
+                                            Мальчики: {{boys|round(2)}}%
+                                        </div>
+                                        <div class="progress-wrapper">
+                                            <div class="progress" style="width: {{girls}}%;"></div>
+                                            Девочки: {{girls|round(2)}}%
+                                        </div>
+                                        <div class="progress-wrapper">
+                                            <div class="progress" style="width: {{total}}%;"></div>
+                                            В общем: {{total|round(2)}}%
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
 <h1>Сводная таблица</h1>
 <table>
     {% for class in classes %}
@@ -70,7 +83,10 @@
             {% for result in class.results %}
                 {% for level in result.levels %}
                     {% set boys = level.male_count / class.male * 100 %}
-                    <td>{{boys|round(2)}}%</td>
+                    <td class="progress-wrapper">
+                        <div class="progress" style="width: {{boys}}%;"></div>
+                        {{boys|round(2)}}%
+                    </td>
                 {% endfor %}
             {% endfor %}
         </tr>
@@ -79,7 +95,10 @@
             {% for result in class.results %}
                 {% for level in result.levels %}
                     {% set girls = level.female_count / class.female * 100 %}
-                    <td>{{girls|round(2)}}%</td>
+                    <td class="progress-wrapper">
+                        <div class="progress" style="width: {{girls}}%;"></div>
+                        {{girls|round(2)}}%
+                    </td>
                 {% endfor %}
             {% endfor %}
         </tr>
@@ -88,10 +107,14 @@
             {% for result in class.results %}
                 {% for level in result.levels %}
                     {% set total = (level.male_count + level.female_count) / class.total * 100 %}
-                    <td>{{total|round(2)}}%</td>
+                    <td class="progress-wrapper">
+                        <div class="progress" style="width: {{total}}%;"></div>
+                        {{total|round(2)}}%
+                    </td>
                 {% endfor %}
             {% endfor %}
         </tr>
     {% endfor %}
 </table>
 </body>
+</html>

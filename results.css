@@ -9,6 +9,15 @@
     clear: both;
 }
 
+.left {
+    float: left;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
 .result {
     float: left;
     width: 33.33%;
@@ -62,4 +71,12 @@ td {
 
 .text-left {
     text-align: left;
+}
+
+.class-results th {
+    background-color: #eee;
+}
+
+.class-results .progress-wrapper {
+    min-width: 200px;
 }
